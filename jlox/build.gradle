@@ -19,5 +19,9 @@ dependencies {
 }
 
 application {
-    mainClass = 'com.varunbarad.lox.Main'
+    mainClass = 'com.varunbarad.lox.Lox'
+}
+
+run {
+    standardInput = System.in
 }
