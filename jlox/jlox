@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Save the current directory
+ORIGINAL_DIR="$(pwd)"
+
+# Convert all relative paths to absolute paths
+ARGS=()
+for arg in "$@"; do
+    # Check if the argument is a file that exists (relative path)
+    if [[ -e "$arg" && "$arg" != /* ]]; then
+        # Convert to absolute path
+        ARGS+=("${ORIGINAL_DIR}/${arg}")
+    else
+        # Keep the argument as-is
+        ARGS+=("$arg")
+    fi
+done
+
+# Change to the script directory and call gradlew
+cd "${SCRIPT_DIR}" && ./gradlew run --args="${ARGS[*]}"
