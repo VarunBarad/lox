@@ -1,0 +1,9 @@
+fun square(a) {
+    return a * a;
+}
+print square(12);
+
+fun add_two_numbers(a, b) {
+    return a + b;
+}
+print add_two_numbers(31, 54);

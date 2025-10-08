@@ -1,0 +1,24 @@
+var a = 30;
+var b = 40;
+var c = 13;
+
+print "a:";
+print a;
+print "b:";
+print b;
+print "c:";
+print c;
+
+if (a < b) {
+    if (a < c) {
+        print "a is the smallest number";
+    } else {
+        print "c is the smallest number";
+    }
+} else {
+    if (b < c) {
+        print "b is the smallest number";
+    } else {
+        print "c is the smallest number";
+    }
+}

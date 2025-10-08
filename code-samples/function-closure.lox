@@ -1,0 +1,19 @@
+fun outer_function() {
+    var outside = "outside";
+
+    fun inner_function() {
+        print "Printing inside the inner_function";
+        print outside;
+    }
+
+    print "Printing inside the outer_function";
+
+    return inner_function;
+}
+
+print "Printing before the outer_function";
+var function_to_execute = outer_function();
+print "Printing after the outer_function";
+
+function_to_execute();
+print "Printing after function_to_execute";

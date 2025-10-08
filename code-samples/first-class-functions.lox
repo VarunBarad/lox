@@ -1,0 +1,14 @@
+fun log_return_value(original_function, input) {
+    print original_function(input);
+}
+
+fun square(a) {
+    return a * a;
+}
+
+fun times_two(a) {
+    return a + a;
+}
+
+log_return_value(square, 5);
+log_return_value(times_two, 13);
