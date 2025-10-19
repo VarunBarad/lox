@@ -25,3 +25,9 @@ application {
 run {
     standardInput = System.in
 }
+
+task runTool(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = project.findProperty('mainClass') ?: 'com.varunbarad.lox.Lox'
+    standardInput = System.in
+}
