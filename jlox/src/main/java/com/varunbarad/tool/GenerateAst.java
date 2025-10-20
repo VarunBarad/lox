@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class GenerateAst {
@@ -32,16 +33,39 @@ public class GenerateAst {
         writer.println();
         writer.println("abstract class " + baseName + " {");
 
+        defineVisitor(writer, baseName, types);
+
+        // The base accept() method
+        writer.println();
+        writer.println("\tabstract <R> R accept(Visitor<R> visitor);");
+
         // The AST classes
-        for (String type : types) {
+        writer.println();
+        Iterator<String> typeIterator = types.iterator();
+        while (typeIterator.hasNext()) {
+            String type = typeIterator.next();
             String className = type.split(":")[0].trim();
             String fields = type.split(":")[1].trim();
             defineType(writer, baseName, className, fields);
-            writer.println();
+
+            if (typeIterator.hasNext()) {
+                writer.println();
+            }
         }
 
         writer.println("}");
         writer.close();
+    }
+
+    private static void defineVisitor(PrintWriter writer, String baseName, List<String> types) {
+        writer.println("\tinterface Visitor<R> {");
+
+        for (String type : types) {
+            String typeName = type.split(":")[0].trim();
+            writer.println("\t\tR visit" + typeName + baseName + "(" + typeName + " " + baseName.toLowerCase() + ");");
+        }
+
+        writer.println("\t}");
     }
 
     private static void defineType(PrintWriter writer, String baseName, String className, String fieldList) {
@@ -65,6 +89,12 @@ public class GenerateAst {
         // Close constructor
         writer.println("\t\t}");
 
+        // Visitor pattern
+        writer.println();
+        writer.println("\t\t@Override");
+        writer.println("\t\t<R> R accept(Visitor<R> visitor) {");
+        writer.println("\t\t\treturn visitor.visit" + className + baseName + "(this);");
+        writer.println("\t\t}");
 
         writer.println("\t}");
     }
