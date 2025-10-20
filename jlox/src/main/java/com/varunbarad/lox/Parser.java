@@ -15,7 +15,7 @@ public class Parser {
 
     Expr parse() {
         try {
-            return expression();
+            return expressionSeries();
         } catch (ParseError error) {
             return null;
         }
@@ -107,6 +107,10 @@ public class Parser {
         }
 
         return expr;
+    }
+
+    private Expr expressionSeries() throws ParseError {
+        return leftAssociativeBinaryOperator(this::expression, COMMA);
     }
 
     private Expr expression() throws ParseError {
