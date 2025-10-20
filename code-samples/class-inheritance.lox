@@ -1,0 +1,46 @@
+class Parallelogram {
+    init(base_width, height) {
+        this.base_width = base_width;
+        this.height = height;
+    }
+
+    area() {
+        return this.base_width * this.height;
+    }
+
+    perimeter() {
+        print "I can't figure out the area of a parallelogram";
+        return -1;
+    }
+}
+
+class Rectangle < Parallelogram {
+    init(width, height) {
+        super.init(width, height);
+    }
+
+    perimeter() {
+        return (this.base_width + this.height) * 2;
+    }
+}
+
+class Square < Rectangle {
+    init(side) {
+        super.init(side, side);
+    }
+}
+
+var p = Parallelogram(10, 20);
+var p_area = p.area();
+var p_peri = p.perimeter();
+print "::Parallelogram:: Area: " + p_area + " & Perimeter: " + p_peri;
+
+var r = Rectangle(5, 4);
+var r_area = r.area();
+var r_peri = r.perimeter();
+print "::Rectangle:: Area: " + r_area + " & Perimeter: " + r_peri;
+
+var s = Square(7);
+var s_area = s.area();
+var s_peri = s.perimeter();
+print "::Square:: Area: " + s_area + " & Perimeter: " + s_peri;

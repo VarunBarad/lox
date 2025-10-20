@@ -1,0 +1,29 @@
+class Cooker {
+    init(food_item) {
+        this.food_item = food_item;
+        this.is_cooked = false;
+    }
+
+    cook() {
+        this.is_cooked = true;
+    }
+
+    serve(who) {
+        if (this.is_cooked) {
+            print "Enjoy your cooked " + this.food_item + ", " + who + ".";
+        } else {
+            print "You might not like that raw " + this.food_item + ", " + who + ".";
+        }
+    }
+}
+
+var breakfast = Cooker("Chilla");
+breakfast.serve("Varun");
+breakfast.cook();
+breakfast.serve("Varun");
+
+var lunch_chef = Cooker;
+var lunch = lunch_chef("Pizza");
+lunch.serve("Varun");
+lunch.cook();
+lunch.serve("Varun");
