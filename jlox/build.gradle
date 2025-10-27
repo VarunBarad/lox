@@ -22,6 +22,12 @@ application {
     mainClass = 'com.varunbarad.lox.Lox'
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.varunbarad.lox.Lox'
+    }
+}
+
 run {
     standardInput = System.in
 }
