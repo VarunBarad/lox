@@ -21,10 +21,16 @@ public class Interpreter implements Expr.Visitor<Object> {
                 return ((double) left) - ((double) right);
             }
             case PLUS: {
-                if ((left instanceof Double) && (right instanceof Double)) {
+                if ((left instanceof String) || (right instanceof String)) {
+                    if ((left instanceof String) && (right instanceof String)) {
+                        return ((String) left) + ((String) right);
+                    } else if (left instanceof String) {
+                        return evaluate(new Expr.Binary(new Expr.Literal(left), expr.operator, new Expr.Literal(stringify(right))));
+                    } else {
+                        return evaluate(new Expr.Binary(new Expr.Literal(stringify(left)), expr.operator, new Expr.Literal(right)));
+                    }
+                } else if ((left instanceof Double) && (right instanceof Double)) {
                     return ((double) left) + ((double) right);
-                } else if ((left instanceof String) && (right instanceof String)) {
-                    return ((String) left) + ((String) right);
                 } else {
                     throw new RuntimeError(expr.operator, "Operands must be two numbers or two strings.");
                 }
