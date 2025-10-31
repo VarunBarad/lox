@@ -42,4 +42,9 @@ public class RpnPrinter implements Expr.Visitor<String> {
     public String visitUnaryExpr(Expr.Unary expr) {
         return notate(expr.operator.lexeme, expr.right);
     }
+
+    @Override
+    public String visitVariableExpr(Expr.Variable expr) {
+        return expr.name.lexeme;
+    }
 }
