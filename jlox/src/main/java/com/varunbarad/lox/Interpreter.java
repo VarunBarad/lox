@@ -31,6 +31,7 @@ public class Interpreter implements Expr.Visitor<Object> {
             }
             case SLASH: {
                 checkNumberOperands(expr.operator, left, right);
+                checkZeroDivisor(expr.operator, (double) right);
                 return ((double) left) / ((double) right);
             }
             case STAR: {
@@ -106,6 +107,12 @@ public class Interpreter implements Expr.Visitor<Object> {
             return;
         } else {
             throw new RuntimeError(operator, "Operands must be numbers.");
+        }
+    }
+
+    private void checkZeroDivisor(Token operator, double divisor) {
+        if (divisor == 0) {
+            throw new RuntimeError(operator, "Cannot divide by zero.");
         }
     }
 
