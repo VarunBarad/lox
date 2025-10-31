@@ -15,11 +15,16 @@ public class GenerateAst {
         }
         String outputDirectory = args[0];
         System.out.println("Output Directory: " + outputDirectory);
+
         defineAst(outputDirectory, "Expr", Arrays.asList(
                 "Binary : Expr left, Token operator, Expr right",
                 "Grouping : Expr expression",
                 "Literal : Object value",
                 "Unary : Token operator, Expr right"
+        ));
+        defineAst(outputDirectory, "Stmt", Arrays.asList(
+                "Expression : Expr expression",
+                "Print : Expr expression"
         ));
     }
 
