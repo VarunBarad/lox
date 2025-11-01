@@ -116,7 +116,7 @@ public class Parser {
     }
 
     private Expr expression() throws ParseError {
-        return equality();
+        return assignment();
     }
 
     private Stmt declaration() {
@@ -162,6 +162,24 @@ public class Parser {
         Expr expr = expression();
         consume(SEMICOLON, "Expect ';' after expression.");
         return new Stmt.Expression(expr);
+    }
+
+    private Expr assignment() {
+        Expr expr = equality();
+
+        if (match(EQUAL)) {
+            Token equals = previous();
+            Expr value = assignment();
+
+            if (expr instanceof Expr.Variable) {
+                Token name = ((Expr.Variable) expr).name;
+                return new Expr.Assign(name, value);
+            } else {
+                error(equals, "Invalid assignment target.");
+            }
+        }
+
+        return expr;
     }
 
     private Expr equality() throws ParseError {
