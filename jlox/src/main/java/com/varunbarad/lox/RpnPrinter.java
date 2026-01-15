@@ -1,6 +1,31 @@
 package com.varunbarad.lox;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RpnPrinter implements Expr.Visitor<String> {
+    public static void main(String[] args) {
+        List<Expr> argumentsAdd = new ArrayList<>();
+        argumentsAdd.add(new Expr.Literal(1));
+        argumentsAdd.add(new Expr.Literal(2));
+        Expr add = new Expr.Call(
+                new Expr.Literal("add"),
+                new Token(TokenType.LEFT_PAREN, "(", null, 1),
+                argumentsAdd
+        );
+        List<Expr> argumentsMultiply = new ArrayList<>();
+        argumentsMultiply.add(add);
+        argumentsMultiply.add(new Expr.Literal(5));
+        Expr multiply = new Expr.Call(
+                new Expr.Literal("multiply"),
+                new Token(TokenType.LEFT_PAREN, "(", null, 1),
+                argumentsMultiply
+        );
+
+        RpnPrinter printer = new RpnPrinter();
+        System.out.println(printer.print(multiply));
+    }
+
     String print(Expr expr) {
         return expr.accept(this);
     }
@@ -27,6 +52,23 @@ public class RpnPrinter implements Expr.Visitor<String> {
     @Override
     public String visitBinaryExpr(Expr.Binary expr) {
         return notate(expr.operator.lexeme, expr.left, expr.right);
+    }
+
+    @Override
+    public String visitCallExpr(Expr.Call expr) {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("(");
+        for (Expr argument : expr.arguments) {
+            builder.append(argument.accept(this));
+            builder.append(" ");
+        }
+        builder.append(expr.callee.accept(this));
+        builder.append(" ");
+        builder.append(expr.arguments.size());
+        builder.append(" call)");
+
+        return builder.toString();
     }
 
     @Override
