@@ -8,5 +8,6 @@ fun fibonacci_term(index) {
     }
 }
 
-print "Let's see Fibonacci Term 12:";
-print fibonacci_term(12);
+for (var i = 0; i < 20; i = i + 1) {
+    print fibonacci_term(i);
+}
