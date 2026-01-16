@@ -9,12 +9,12 @@ public class NativeFunctionClock implements LoxCallable {
     }
 
     @Override
-    public Object call(Interpreter interpreter, List<Object> arguments) {
+    public Object call(Token paren, Interpreter interpreter, List<Object> arguments) {
         return (double) System.currentTimeMillis() / 1000.0;
     }
 
     @Override
     public String toString() {
-        return "<native fn>";
+        return "<native fn clock>";
     }
 }

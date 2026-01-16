@@ -9,6 +9,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     public Interpreter() {
         globals.define("clock", new NativeFunctionClock());
+        globals.define("number_to_string", new NativeFunctionNumberToString());
     }
 
     void interpret(List<Stmt> statements) {
@@ -101,7 +102,7 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             throw new RuntimeError(expr.paren, "Expected " + function.arity() + " arguments but got " + arguments.size() + ".");
         }
 
-        return function.call(this, arguments);
+        return function.call(expr.paren, this, arguments);
     }
 
     @Override
