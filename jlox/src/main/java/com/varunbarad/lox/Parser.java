@@ -142,6 +142,8 @@ public class Parser {
             return ifStatement();
         } else if (match(PRINT)) {
             return printStatement();
+        } else if (match(RETURN)) {
+            return returnStatement();
         } else if (match(WHILE)) {
             return whileStatement();
         } else if (match(LEFT_BRACE)) {
@@ -203,6 +205,17 @@ public class Parser {
         }
 
         return new Stmt.If(condition, thenBranch, elseBranch);
+    }
+
+    private Stmt returnStatement() {
+        Token keyword = previous();
+        Expr value = null;
+        if (!check(SEMICOLON)) {
+            value = expression();
+        }
+
+        consume(SEMICOLON, "Expect ';' after return value.");
+        return new Stmt.Return(keyword, value);
     }
 
     private Stmt printStatement() {
