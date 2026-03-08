@@ -1,0 +1,7 @@
+class Cooker {
+    cook() {
+        return "Food";
+    }
+}
+
+print Cooker; // Prints "Cooker"
