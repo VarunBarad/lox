@@ -1,0 +1,9 @@
+class Cooker {
+    cook() {
+        return "Food";
+    }
+}
+print Cooker; // Prints "Cooker"
+
+var utensil = Cooker();
+print utensil; // Prints "Cooker instance"
