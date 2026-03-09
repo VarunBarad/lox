@@ -1,0 +1,6 @@
+class Cooker {
+}
+
+var utensil = Cooker();
+utensil.foodItem = "Vegetables";
+print utensil.foodItem;
